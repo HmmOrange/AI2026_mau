@@ -1,20 +1,72 @@
-# Mẫu bài thi AI 2026
+# Hướng dẫn nộp bài
 
-Repo này chứa hướng dẫn và một bài nộp mẫu tối giản trong thư mục `team001/`.
+## 1. Cấu trúc bài nộp
 
-## Bắt đầu nhanh
+Bài nộp là một tệp ZIP không quá 100 MB. Chỉ `Dockerfile` bắt buộc phải nằm ngay ở thư mục gốc; tên và cấu trúc các tệp còn lại do đội tự chọn:
 
-1. Đổi tên thư mục `team001` thành tên đội.
-2. Viết phần xử lý câu hỏi trong `main.py`.
-3. Dựng và chạy thử bằng Docker theo [HƯỚNG_DẪN.md](HƯỚNG_DẪN.md).
-4. Nén nội dung thư mục đội thành tệp ZIP để nộp. Chỉ `Dockerfile` bắt buộc phải nằm ngay ở gốc tệp ZIP.
-
-Không đưa khóa OpenRouter vào mã nguồn hoặc tệp ZIP.
-
-Có thể chạy nhanh bộ khung mà chưa cần Docker:
-
-```bash
-python team001/main.py --xlsx-dir sample-data/xlsx_files --queries sample-data/queries.json --openrouter-key test --openrouter-model qwen/qwen3.7-flash --openrouter-base-url https://openrouter.ai/api/v1
+```text
+team001.zip
+|-- Dockerfile
+`-- ...mã nguồn và tệp cần thiết...
 ```
 
-Lệnh này tạo `output/team001/submission.csv` với đáp án mẫu `TODO`.
+`Dockerfile` phải nằm ngay ở gốc tệp ZIP, không đặt trong một thư mục con khác.
+
+Ảnh Docker phải chạy trên Linux `amd64`, không dùng GPU và chứa sẵn toàn bộ mã nguồn cùng thư viện cần thiết. Không đưa khóa API vào bài nộp.
+
+## 2. Entrypoint
+
+Ảnh Docker phải khai báo `ENTRYPOINT` để nhận các tham số dòng lệnh từ hệ thống chấm. Không bắt buộc ngôn ngữ hoặc tên tệp cụ thể.
+
+Python:
+
+```dockerfile
+ENTRYPOINT ["python", "main.py"]
+```
+
+JavaScript:
+
+```dockerfile
+ENTRYPOINT ["node", "main.js"]
+```
+
+Rust:
+
+```dockerfile
+ENTRYPOINT ["./app"]
+```
+
+Chương trình được khai báo trong `ENTRYPOINT` phải nhận các tham số do hệ thống chấm cung cấp và chỉ thoát với mã `0` sau khi đã ghi xong kết quả.
+
+## 3. Các tham số hệ thống cung cấp
+
+Hệ thống chạy bài làm với sáu tham số:
+
+```text
+--xlsx-dir /input/xlsx_files
+--queries /input/queries.json
+--output /output/submission.csv
+--openrouter-key <key>
+--openrouter-model qwen/qwen3.7-flash
+--openrouter-base-url https://openrouter.ai/api/v1
+```
+
+Chương trình phải:
+
+- đọc các bảng tính trong thư mục nhận từ `--xlsx-dir`;
+- đọc danh sách câu hỏi từ tệp nhận từ `--queries`;
+- ghi kết quả vào đúng đường dẫn nhận từ `--output`;
+- không sửa dữ liệu trong `/input`;
+- ghi nhật ký ra stdout hoặc stderr, không ghi lẫn vào tệp kết quả.
+
+## 4. Định dạng kết quả
+
+Tệp kết quả phải là CSV UTF-8 với đúng hai cột `id,answer`:
+
+```csv
+id,answer
+1,11
+2,Ngo
+```
+
+Mỗi `id` trong `queries.json` phải xuất hiện đúng một lần. Không được thiếu, trùng hoặc thêm `id`. Cột `answer` chỉ chứa đáp án cuối cùng, không kèm giải thích.
