@@ -2,17 +2,16 @@
 
 ## 1. Cấu trúc bài nộp
 
-Bài nộp là một tệp ZIP không quá 100 MB. Ví dụ đội `team001` nộp tệp `team001.zip` có cấu trúc:
+Bài nộp sử dụng Python và là một tệp ZIP không quá 100 MB. Ví dụ đội `team001` nộp tệp `team001.zip` có cấu trúc:
 
 ```text
 team001.zip
 |-- Dockerfile
-|-- run.sh
 |-- main.py
 `-- ...
 ```
 
-`Dockerfile` và `run.sh` phải nằm ngay ở gốc tệp ZIP, không đặt trong một thư mục con khác.
+`Dockerfile` và `main.py` phải nằm ngay ở gốc tệp ZIP, không đặt trong một thư mục con khác.
 
 Ảnh Docker phải chạy trên Linux `amd64`, không dùng GPU và chứa sẵn toàn bộ mã nguồn cùng thư viện cần thiết. Không đưa khóa API vào bài nộp.
 
@@ -21,18 +20,10 @@ team001.zip
 Ảnh Docker phải khai báo đúng dòng sau:
 
 ```dockerfile
-ENTRYPOINT ["./run.sh"]
+ENTRYPOINT ["python", "main.py"]
 ```
 
-Sau khi dựng ảnh Docker, tệp `run.sh` phải có dòng đầu tiên là `#!/bin/sh`, có quyền thực thi và chuyển toàn bộ tham số nhận được sang chương trình chính bằng `"$@"`.
-
-Ví dụ `run.sh` cho bài làm bằng Python:
-
-```sh
-#!/bin/sh
-set -eu
-exec python main.py "$@"
-```
+Khi container khởi động, Docker chạy trực tiếp `main.py`. Tệp này phải nhận các tham số dòng lệnh do hệ thống chấm cung cấp và chỉ thoát với mã `0` sau khi đã ghi xong kết quả.
 
 ## 3. Các tham số hệ thống cung cấp
 

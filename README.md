@@ -7,7 +7,7 @@ Repo này chứa hướng dẫn và một bài nộp mẫu tối giản trong th
 1. Đổi tên thư mục `team001` thành tên đội.
 2. Viết phần xử lý câu hỏi trong `main.py`.
 3. Dựng và chạy thử bằng Docker theo [HƯỚNG_DẪN.md](HƯỚNG_DẪN.md).
-4. Nén nội dung thư mục đội thành tệp ZIP để nộp. `Dockerfile` và `run.sh` phải nằm ngay ở gốc tệp ZIP.
+4. Nén nội dung thư mục đội thành tệp ZIP để nộp. `Dockerfile` và `main.py` phải nằm ngay ở gốc tệp ZIP.
 
 Không đưa khóa OpenRouter vào mã nguồn hoặc tệp ZIP.
 
