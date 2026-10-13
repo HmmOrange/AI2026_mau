@@ -21,22 +21,17 @@ team001.zip
 Ảnh Docker phải khai báo đúng dòng sau:
 
 ```dockerfile
-ENTRYPOINT ["/solution/run.sh"]
+ENTRYPOINT ["./run.sh"]
 ```
 
-Sau khi dựng ảnh Docker, tệp `run.sh` phải:
-
-- nằm tại đường dẫn `/solution/run.sh` bên trong container;
-- có dòng đầu tiên là `#!/bin/sh`;
-- có quyền thực thi;
-- chuyển toàn bộ tham số nhận được sang chương trình chính bằng `"$@"`.
+Sau khi dựng ảnh Docker, tệp `run.sh` phải có dòng đầu tiên là `#!/bin/sh`, có quyền thực thi và chuyển toàn bộ tham số nhận được sang chương trình chính bằng `"$@"`.
 
 Ví dụ `run.sh` cho bài làm bằng Python:
 
 ```sh
 #!/bin/sh
 set -eu
-exec python /solution/main.py "$@"
+exec python main.py "$@"
 ```
 
 ## 3. Các tham số hệ thống cung cấp
@@ -109,7 +104,7 @@ Sau khi chạy xong, kiểm tra tệp `submission.csv` trong thư mục kết qu
 ## 7. Kiểm tra trước khi nộp
 
 - `Dockerfile` và `run.sh` nằm ở gốc tệp ZIP.
-- `ENTRYPOINT` là chính xác `["/solution/run.sh"]`.
+- `ENTRYPOINT` là chính xác `["./run.sh"]`.
 - Ảnh dựng được cho `linux/amd64` và không cần GPU.
 - Chương trình nhận đủ sáu tham số và không sửa `/input`.
 - `submission.csv` là UTF-8, có header `id,answer` và mỗi `id` xuất hiện đúng một lần.
