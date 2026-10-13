@@ -14,7 +14,7 @@ Không đưa khóa OpenRouter vào mã nguồn hoặc tệp ZIP.
 Có thể chạy nhanh bộ khung mà chưa cần Docker:
 
 ```bash
-python team001/main.py --xlsx-dir sample-data/xlsx_files --queries sample-data/queries.json --output output/submission.csv --openrouter-key test --openrouter-model qwen/qwen3.7-flash --openrouter-base-url https://openrouter.ai/api/v1
+python team001/main.py --xlsx-dir sample-data/xlsx_files --queries sample-data/queries.json --openrouter-key test --openrouter-model qwen/qwen3.7-flash --openrouter-base-url https://openrouter.ai/api/v1
 ```
 
-Lệnh này tạo `output/submission.csv` với đáp án mẫu `TODO`.
+Lệnh này tạo `output/team001/submission.csv` với đáp án mẫu `TODO`.

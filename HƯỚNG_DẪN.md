@@ -81,7 +81,7 @@ Chạy thử với dữ liệu mẫu trên máy:
 docker run --rm \
   --mount type=bind,src=<duong-dan-tuyet-doi>/xlsx_files,dst=/input/xlsx_files,readonly \
   --mount type=bind,src=<duong-dan-tuyet-doi>/queries.json,dst=/input/queries.json,readonly \
-  --mount type=bind,src=<thu-muc-ket-qua-tuyet-doi>,dst=/output \
+  --mount type=bind,src=<duong-dan-repo-tuyet-doi>/output/team001,dst=/output \
   team001 \
   --xlsx-dir /input/xlsx_files \
   --queries /input/queries.json \
@@ -91,7 +91,7 @@ docker run --rm \
   --openrouter-base-url https://openrouter.ai/api/v1
 ```
 
-Sau khi chạy xong, kiểm tra tệp `submission.csv` trong thư mục kết quả.
+Sau khi chạy xong, kiểm tra tệp `output/team001/submission.csv`.
 
 ## 6. Giới hạn
 
