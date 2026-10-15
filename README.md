@@ -2,7 +2,7 @@
 
 ## 1. Cấu trúc bài nộp
 
-Bài nộp là một tệp ZIP không quá 100 MB. Chỉ `Dockerfile` bắt buộc phải nằm ngay ở thư mục gốc; tên và cấu trúc các tệp còn lại do đội tự chọn:
+Bài nộp là một tệp ZIP không quá 100 MB. Tên file zip đặt theo tên đội, ví dụ đội tên là team001 thì tên file là team001.zip. Chỉ `Dockerfile` bắt buộc phải nằm ngay ở thư mục gốc; tên và cấu trúc các tệp còn lại do đội tự chọn:
 
 ```text
 team001.zip
